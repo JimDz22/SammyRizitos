@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Sammy ✨</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #2a0a3d, #000);
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      width: 100vw;
+      color: #f5eef8;
+      transition: filter 1s ease;
+    }
+
+    .intro {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #1a001f, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .intro button {
+      background: linear-gradient(45deg, #ff6ec7, #b46cff);
+      border: none;
+      color: white;
+      font-size: 1.3em;
+      padding: 18px 35px;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(255,110,199,0.8);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .intro button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 45px rgba(255,110,199,1);
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.9), rgba(255,255,255,0));
+      opacity: 0.7;
+      transform: rotate(-25deg);
+      animation: shoot 1.2s ease-out forwards;
+    }
+
+    @keyframes shoot {
+      from {
+        transform: translate(0, 0) rotate(-25deg);
+        opacity: 0;
+      }
+      30% { opacity: 0.8; }
+      to {
+        transform: translate(180px, 80px) rotate(-25deg);
+        opacity: 0;
+      }
+      50% { opacity: 1; transform: scale(1.6); }
+    }
+
+
+    .shooting-star {
+      position: absolute;
+      top: -10%;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, white, transparent);
+      opacity: 0.8;
+      animation: shoot 2.2s linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes shoot {
+      from { transform: translateX(-200px) translateY(0); }
+      to { transform: translateX(120vw) translateY(80vh); opacity: 0; }
+    }
+
+    .message-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      border-radius: 30px;
+      padding: 45px 55px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 0 50px rgba(180,108,255,0.45);
+      z-index: 2;
+      display: none;
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.015); }
+    }
+
+    .message-box h1 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 20px;
+      font-size: 2.8em;
+      text-shadow: 0 0 20px #ff6ec7;
+    }
+
+    .line {
+      opacity: 0;
+      font-size: 1.35em;
+      line-height: 1.7em;
+      text-shadow: 0 0 12px #b46cff;
+      animation: reveal 1.5s ease forwards;
+    }
+
+    @keyframes reveal {
+      to { opacity: 1; }
+    }
+
+    .intimate {
+      filter: brightness(0.7) saturate(0.85);
+    }
+
+    audio { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="intro" id="intro">
+    <button onclick="startLove()">Para ti ✨</button>
+  </div>
+
+  <div class="stars" id="stars"></div>
+
+  <div class="message-box" id="messageBox">
+    <h1>Sammy Rizitos</h1>
+    <div class="line" style="animation-delay:0.5s">Entre estrellas y silencios,</div>
+    <div class="line" style="animation-delay:2s">pienso en tus rizitos,</div>
+    <div class="line" style="animation-delay:3.5s">y en esos ojitos que aún no veo…</div>
+    <div class="line" style="animation-delay:5s">pero ya saben quedarse. 🌙</div>
+  </div>
+
+  <audio id="music" loop>
+    <source src="https://raw.githubusercontent.com/fabidz13/Canciones/main/Jungkook%20%5BBTS%5D%20-%20Still%20With%20You%20(Traducida%20al%20espa%C3%B1ol).mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function startLove() {
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('messageBox').style.display = 'block';
+      document.getElementById('music').volume = 0;
+      document.getElementById('music').play();
+      fadeInMusic();
+    }
+
+    function fadeInMusic() {
+      const music = document.getElementById('music');
+      const interval = setInterval(() => {
+        if (music.volume < 0.6) {
+          music.volume += 0.02;
+        } else {
+          clearInterval(interval);
+        }
+      }, 200);
+    }
+
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 200; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.animationDelay = `${Math.random() * 5}s`;
+      stars.appendChild(star);
+    }
+
+    setInterval(() => {
+      const shootingStar = document.createElement('div');
+      shootingStar.className = 'shooting-star';
+      shootingStar.style.top = Math.random() * 40 + 'vh';
+      shootingStar.style.left = Math.random() * 60 + 'vw';
+      stars.appendChild(shootingStar);
+
+      setTimeout(() => shootingStar.remove(), 1500);
+    }, 7000);
+  </script>
+
+</body>
+</html>
